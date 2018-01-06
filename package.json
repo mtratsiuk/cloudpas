@@ -1,0 +1,27 @@
+{
+  "name": "cloudpas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mihail Tratsiuk",
+  "license": "MIT",
+  "lint-staged": {
+    "linters": {
+      "src/**/*.js": [
+        "prettier-standard",
+        "standard",
+        "git add"
+      ]
+    }
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "lerna": "^2.5.1",
+    "lint-staged": "^6.0.0",
+    "prettier-standard": "^8.0.0",
+    "standard": "^10.0.3"
+  }
+}
