@@ -17,6 +17,13 @@
       ]
     }
   },
+  "standard": {
+    "globals": [
+      "expect",
+      "it",
+      "describe"
+    ]
+  },
   "devDependencies": {
     "husky": "^0.14.3",
     "lerna": "^2.5.1",

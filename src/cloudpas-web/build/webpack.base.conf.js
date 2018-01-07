@@ -9,10 +9,6 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-function resolveNodeModules (dir) {
-  return path.join(__dirname, '..', 'node_modules', dir)
-}
-
 module.exports = {
   entry: {
     app: './src/main.js'
