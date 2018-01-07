@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { actionTypes, storageTypes, getters } from '@/consts';
+import { actionTypes, storageTypes, getterTypes } from '@/consts';
 
 import ViewLayout from '@/components/view-layout';
 
@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       submitted: false,
-      selected: this.$store.getters[getters.storageType],
+      selected: this.$store.getters[getterTypes.storageType],
       options: Object.entries(storageTypes).map(([key, value]) => ({
         text: key,
         value,

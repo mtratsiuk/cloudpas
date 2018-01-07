@@ -21,7 +21,8 @@
     "globals": [
       "expect",
       "it",
-      "describe"
+      "describe",
+      "__DEV__"
     ]
   },
   "devDependencies": {

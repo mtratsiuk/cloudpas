@@ -12,20 +12,23 @@
 </template>
 
 <script>
-import { getters } from '@/consts';
+import { getterTypes } from '@/consts';
 
 import SecretsView from '@/components/secrets-view';
 import StorageView from '@/components/storage-view';
 import PasswordsView from '@/components/passwords-view';
+import PasswordEditView from '@/components/password-edit-view';
 
 export default {
-  components: { SecretsView, StorageView, PasswordsView },
+  components: { SecretsView, StorageView, PasswordsView, PasswordEditView },
   computed: {
     currentView() {
-      if (!this.$store.getters[getters.encryptionKey]) {
+      if (!this.$store.getters[getterTypes.encryptionKey]) {
         return 'secrets-view';
-      } else if (!this.$store.getters[getters.db]) {
+      } else if (!this.$store.getters[getterTypes.db]) {
         return 'storage-view';
+      } else if (this.$store.getters[getterTypes.editablePassword]) {
+        return 'password-edit-view';
       }
       return 'passwords-view';
     },
@@ -37,7 +40,19 @@ export default {
 @import '~bootstrap/dist/css/bootstrap.css';
 @import '~bootstrap-vue/dist/bootstrap-vue.css';
 
-.app-header {
-  margin-bottom: 50px;
+html,
+body,
+#app {
+  height: 100%;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+
+  > main {
+    height: 1px;
+    flex-grow: 1;
+  }
 }
 </style>

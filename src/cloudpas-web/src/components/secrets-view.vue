@@ -47,14 +47,14 @@
 
 <script>
 import ViewLayout from '@/components/view-layout';
-import { actionTypes, getters } from '@/consts';
+import { actionTypes, getterTypes } from '@/consts';
 
 export default {
   components: { ViewLayout },
   data() {
     return {
-      name: this.$store.getters[getters.userName],
-      password: this.$store.getters[getters.userPassword],
+      name: this.$store.getters[getterTypes.userName],
+      password: this.$store.getters[getterTypes.userPassword],
       useLocalStorage: false,
       submitted: false,
     };

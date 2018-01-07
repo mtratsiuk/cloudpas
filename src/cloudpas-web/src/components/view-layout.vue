@@ -1,6 +1,6 @@
 <template>
-  <b-container>
-    <b-card bg-variant="light">
+  <b-container class="card-container">
+    <b-card bg-variant="light" class="card">
 
       <b-row class="header" align-h="between">
         <div><h3>{{title}}</h3></div>
@@ -9,10 +9,10 @@
         </div>
       </b-row>
 
-      <b-row>
-        <b-container>
+      <b-row class="card-body-slot">
+        <b-col>
           <slot></slot>
-        </b-container>
+        </b-col>
       </b-row>
 
     </b-card>
@@ -32,5 +32,39 @@ export default {
   margin-bottom: 20px;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.card-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  max-width: 800px;
+  max-height: 650px;
+  height: 45vh;
+  width: 80vw;
+
+  @media (max-width: 767.99px) {
+    height: ~'calc(99vh - 56px)';
+    width: ~'calc(99vw)';
+  }
+
+  > * {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+}
+
+.card-body-slot {
+  height: 1px;
+  flex-grow: 1;
+
+  > * {
+    height: 100%;
+  }
 }
 </style>

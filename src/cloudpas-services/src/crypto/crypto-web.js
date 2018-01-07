@@ -51,13 +51,19 @@ async function deriveKey (secret, nonce) {
     },
     key,
     { name: ENC_ALG, length: ENC_KEY_SIZE },
-    false,
+    process.env.NODE_ENV === 'development',
     ['encrypt', 'decrypt']
   )
+}
+
+async function inspectKey (cryptoKey) {
+  const key = await crypto.subtle.exportKey('raw', cryptoKey)
+  return fromArrayBuffer(key, 'hex')
 }
 
 module.exports = {
   encrypt,
   decrypt,
-  deriveKey
+  deriveKey,
+  inspectKey
 }
