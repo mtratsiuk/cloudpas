@@ -63,15 +63,15 @@ export default {
     setSecrets() {
       this.submitted = true;
 
-      if (this.$refs.form.checkValidity()) {
-        this.$store.dispatch(actionTypes.setUserSecrets, {
-          name: this.name,
-          password: this.password,
-          useLocalStorage: this.useLocalStorage,
-        });
-      } else {
-        console.log('Invalid');
+      if (!this.$refs.form.checkValidity()) {
+        return;
       }
+
+      this.$store.dispatch(actionTypes.setUserSecrets, {
+        name: this.name,
+        password: this.password,
+        useLocalStorage: this.useLocalStorage,
+      });
     },
   },
 };

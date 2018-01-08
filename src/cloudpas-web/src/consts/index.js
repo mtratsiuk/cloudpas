@@ -31,6 +31,6 @@ export const getterTypes = {
 }
 
 export const storageTypes = {
-  local: 'local',
-  dropbox: 'dropbox'
+  local: 'local'
+  // dropbox: 'dropbox'
 }

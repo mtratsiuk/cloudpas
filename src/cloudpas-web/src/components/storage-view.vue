@@ -48,11 +48,13 @@ export default {
     selectStorage() {
       this.submitted = true;
 
-      if (this.$refs.form.checkValidity()) {
-        this.$store.dispatch(actionTypes.selectStorage, {
-          type: this.selected,
-        });
+      if (!this.$refs.form.checkValidity()) {
+        return;
       }
+
+      this.$store.dispatch(actionTypes.selectStorage, {
+        type: this.selected,
+      });
     },
   },
 };

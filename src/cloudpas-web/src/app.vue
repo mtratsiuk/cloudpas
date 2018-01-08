@@ -6,7 +6,9 @@
       </b-navbar>
     </header>
     <main>
-      <component :is="currentView"></component>
+      <transition name="view-fade" mode="out-in">
+        <component :is="currentView"></component>
+      </transition>
     </main>
   </div>
 </template>
@@ -54,5 +56,14 @@ body,
     height: 1px;
     flex-grow: 1;
   }
+}
+
+.view-fade-enter-active,
+.view-fade-leave-active {
+  transition: opacity 0.15s ease-in-out;
+}
+.view-fade-enter,
+.view-fade-leave-to {
+  opacity: 0;
 }
 </style>
