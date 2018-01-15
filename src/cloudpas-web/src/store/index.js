@@ -6,7 +6,7 @@ import { loggerify } from 'cloudpas-utils'
 import localStorage from '@/utils/local-storage'
 import { actionTypes, mutationTypes, getterTypes, storageTypes } from '@/consts'
 
-const Crypto = __DEV__ ? loggerify()(CryptoWeb) : CryptoWeb
+const Crypto = loggerify(CryptoWeb)
 
 Vue.use(Vuex)
 
@@ -127,20 +127,16 @@ export default new Vuex.Store({
         [storageTypes.local]: DbStorage.Local
       }
 
-      storage = new storageMap[type](params)
+      storage = loggerify(new storageMap[type](params))
 
       await storage.init() // TODO: error handling
 
       const encryptedDb = await storage.loadDb()
 
       const key = getters[getterTypes.encryptionKey]
-      let db
-
-      if (!encryptedDb) {
-        db = getInitialDb()
-      } else {
-        db = JSON.parse(await Crypto.decrypt(encryptedDb, key))
-      }
+      const db = encryptedDb
+        ? JSON.parse(await Crypto.decrypt(encryptedDb, key))
+        : getInitialDb()
 
       localStorage.set(STORAGE_PARAMS_KEY, { type, params })
 
