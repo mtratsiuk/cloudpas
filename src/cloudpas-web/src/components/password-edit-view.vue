@@ -33,7 +33,6 @@
     <b-button
       slot="header-actions"
       variant="warning"
-      class="mr-3"
       @click="cancelEditPassword"
     >
       Cancel

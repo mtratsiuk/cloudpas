@@ -4,7 +4,7 @@
 
       <b-row class="header" align-h="between">
         <div><h3>{{title}}</h3></div>
-        <div>
+        <div class="header-actions">
           <slot name="header-actions"></slot>
         </div>
       </b-row>
@@ -65,6 +65,12 @@ export default {
 
   > * {
     height: 100%;
+  }
+}
+
+.header-actions {
+  > :not(:last-child) {
+    margin-right: 1rem;
   }
 }
 </style>

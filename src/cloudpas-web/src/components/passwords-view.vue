@@ -63,8 +63,17 @@
 
   <b-button
     slot="header-actions"
+    variant="warning"
+    @click="revertChanges"
+    v-if="isDirty"
+  >
+    Revert changes
+  </b-button>
+  <b-button
+    slot="header-actions"
     variant="success"
     @click="saveDb"
+    v-if="isDirty"
   >
     Save changes
   </b-button>
@@ -92,7 +101,7 @@ export default {
           name.toLowerCase().indexOf(this.filter.toLowerCase()) !== -1
       );
     },
-    ...mapGetters([getterTypes.passwords]),
+    ...mapGetters([getterTypes.passwords, getterTypes.isDirty]),
   },
   methods: {
     copy({ password }) {
@@ -103,6 +112,7 @@ export default {
       actionTypes.saveDb,
       actionTypes.removePassword,
       actionTypes.editPassword,
+      actionTypes.revertChanges,
     ]),
   },
 };

@@ -14,6 +14,7 @@ const USER_SECRETS_KEY = 'USER_SECRETS'
 const STORAGE_PARAMS_KEY = 'STORAGE_PARAMS'
 
 let storage
+let initialDb
 
 function getInitialState () {
   return {
@@ -29,7 +30,8 @@ function getInitialState () {
       ...localStorage.get(STORAGE_PARAMS_KEY)
     },
     db: null,
-    editablePassword: null
+    editablePassword: null,
+    isDirty: false
   }
 }
 
@@ -71,6 +73,9 @@ export default new Vuex.Store({
     },
     [getterTypes.editablePassword] (state) {
       return state.editablePassword
+    },
+    [getterTypes.isDirty] (state) {
+      return state.isDirty
     }
   },
 
@@ -96,14 +101,20 @@ export default new Vuex.Store({
         ...state.db.passwords,
         [name]: password
       }
+      state.isDirty = true
     },
 
     [mutationTypes.removePassword] (state, { name }) {
       Vue.delete(state.db.passwords, name)
+      state.isDirty = true
     },
 
     [mutationTypes.setEditablePassword] (state, password) {
       state.editablePassword = password
+    },
+
+    [mutationTypes.setIsDirty] (state, value) {
+      state.isDirty = value
     }
   },
 
@@ -139,17 +150,21 @@ export default new Vuex.Store({
         : getInitialDb()
 
       localStorage.set(STORAGE_PARAMS_KEY, { type, params })
+      initialDb = JSON.stringify(db)
 
       commit(mutationTypes.setStorage, { type, params })
       commit(mutationTypes.setDb, db)
     },
 
-    async [actionTypes.saveDb] ({ getters }) {
+    async [actionTypes.saveDb] ({ commit, getters }) {
       const key = getters[getterTypes.encryptionKey]
       const db = getters[getterTypes.db]
       const encryptedDb = await Crypto.encrypt(JSON.stringify(db), key)
 
-      await storage.saveDb(encryptedDb)
+      await storage.saveDb(encryptedDb) // TODO: error handling
+
+      initialDb = JSON.stringify(db)
+      commit(mutationTypes.setIsDirty, false)
     },
 
     [actionTypes.clearData] ({ commit }) {
@@ -179,6 +194,11 @@ export default new Vuex.Store({
 
     [actionTypes.cancelEditPassword] ({ commit }) {
       commit(mutationTypes.setEditablePassword, null)
+    },
+
+    [actionTypes.revertChanges] ({ commit, getters }) {
+      commit(mutationTypes.setDb, JSON.parse(initialDb))
+      commit(mutationTypes.setIsDirty, false)
     }
   }
 })

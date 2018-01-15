@@ -7,7 +7,8 @@ export const actionTypes = {
   changePassword: 'changePassword',
   removePassword: 'removePassword',
   editPassword: 'editPassword',
-  cancelEditPassword: 'cancelEditPassword'
+  cancelEditPassword: 'cancelEditPassword',
+  revertChanges: 'revertChanges'
 }
 
 export const mutationTypes = {
@@ -17,7 +18,8 @@ export const mutationTypes = {
   clearData: 'clearData',
   addPassword: 'addPassword',
   removePassword: 'removePassword',
-  setEditablePassword: 'setEditablePassword'
+  setEditablePassword: 'setEditablePassword',
+  setIsDirty: 'setIsDirty'
 }
 
 export const getterTypes = {
@@ -27,7 +29,8 @@ export const getterTypes = {
   storageType: 'storageType',
   db: 'db',
   passwords: 'passwords',
-  editablePassword: 'editablePassword'
+  editablePassword: 'editablePassword',
+  isDirty: 'isDirty'
 }
 
 export const storageTypes = {
