@@ -52,10 +52,13 @@ import { actionTypes, getterTypes } from '@/consts';
 export default {
   components: { ViewLayout },
   data() {
+    const name = this.$store.getters[getterTypes.userName];
+    const password = this.$store.getters[getterTypes.userPassword];
+
     return {
-      name: this.$store.getters[getterTypes.userName],
-      password: this.$store.getters[getterTypes.userPassword],
-      useLocalStorage: false,
+      name,
+      password,
+      useLocalStorage: Boolean(name && password),
       submitted: false,
     };
   },

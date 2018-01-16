@@ -129,9 +129,7 @@ export default new Vuex.Store({
       const secrets = { name, password }
       const key = await Crypto.deriveKey(password, name)
 
-      if (useLocalStorage) {
-        localStorage.set(USER_SECRETS_KEY, secrets)
-      }
+      localStorage.set(USER_SECRETS_KEY, useLocalStorage ? secrets : null)
 
       commit(mutationTypes.setUserSecrets, { key, ...secrets })
     },
