@@ -20,7 +20,7 @@ function createLoggerify (
 
         return function (...args) {
           try {
-            let result = func(...args)
+            let result = func.call(target, ...args)
 
             if (result instanceof Promise) {
               return result.then(logSuccess).catch(logError)

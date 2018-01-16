@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "cloudpas-utils": "1.0.0"
+    "cloudpas-utils": "1.0.0",
+    "dropbox": "^2.5.13"
   }
 }

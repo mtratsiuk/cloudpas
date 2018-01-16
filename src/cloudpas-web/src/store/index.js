@@ -60,6 +60,9 @@ export default new Vuex.Store({
     [getterTypes.storageType] (state) {
       return state.storage.type
     },
+    [getterTypes.storageParams] (state) {
+      return state.storage.params
+    },
     [getterTypes.db] (state) {
       return state.db
     },
@@ -133,9 +136,13 @@ export default new Vuex.Store({
       commit(mutationTypes.setUserSecrets, { key, ...secrets })
     },
 
-    async [actionTypes.selectStorage] ({ commit, getters }, { type, params }) {
+    async [actionTypes.selectStorage] (
+      { commit, getters },
+      { type, params, useLocalStorage }
+    ) {
       const storageMap = {
-        [storageTypes.local]: DbStorage.Local
+        [storageTypes.local]: DbStorage.Local,
+        [storageTypes.dropbox]: DbStorage.Dropbox
       }
 
       storage = loggerify(new storageMap[type](params))
@@ -149,8 +156,12 @@ export default new Vuex.Store({
         ? JSON.parse(await Crypto.decrypt(encryptedDb, key))
         : getInitialDb()
 
-      localStorage.set(STORAGE_PARAMS_KEY, { type, params })
       initialDb = JSON.stringify(db)
+
+      localStorage.set(STORAGE_PARAMS_KEY, {
+        type,
+        params: useLocalStorage ? params : null
+      })
 
       commit(mutationTypes.setStorage, { type, params })
       commit(mutationTypes.setDb, db)

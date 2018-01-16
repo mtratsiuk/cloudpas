@@ -27,6 +27,7 @@ export const getterTypes = {
   userPassword: 'userPassword',
   encryptionKey: 'encryptionKey',
   storageType: 'storageType',
+  storageParams: 'storageParams',
   db: 'db',
   passwords: 'passwords',
   editablePassword: 'editablePassword',
@@ -34,6 +35,6 @@ export const getterTypes = {
 }
 
 export const storageTypes = {
-  local: 'local'
-  // dropbox: 'dropbox'
+  local: 'local',
+  dropbox: 'dropbox'
 }

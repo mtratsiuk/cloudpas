@@ -22,7 +22,8 @@
       "expect",
       "it",
       "describe",
-      "__DEV__"
+      "__DEV__",
+      "FileReader"
     ]
   },
   "devDependencies": {

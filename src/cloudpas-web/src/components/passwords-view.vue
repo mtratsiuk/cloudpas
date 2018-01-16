@@ -163,6 +163,9 @@ export default {
   &__name {
     flex-basis: 40%;
     margin-right: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__password {
