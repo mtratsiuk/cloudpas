@@ -2,7 +2,7 @@
   <view-layout
     title="Edit password"
   >
-    <b-form novalidate>
+    <b-form novalidate ref="form" :validated="submitted">
       <b-form-group
         vertical
         :label-cols="4"
@@ -13,6 +13,7 @@
           id="name"
           v-model="name"
           type="text"
+          required
         >
         </b-form-input>
       </b-form-group>
@@ -26,6 +27,7 @@
           id="password"
           v-model="password"
           type="password"
+          required
         >
         </b-form-input>
       </b-form-group>
@@ -40,7 +42,7 @@
     <b-button
       slot="header-actions"
       variant="success"
-      @click="changePassword({ from: editablePassword, to: { name, password } })"
+      @click="save"
     >
       Save
     </b-button>
@@ -61,9 +63,22 @@ export default {
       name: editablePassword.name,
       password: editablePassword.password,
       editablePassword,
+      submitted: false,
     };
   },
   methods: {
+    save() {
+      this.submitted = true;
+
+      if (!this.$refs.form.checkValidity()) {
+        return;
+      }
+
+      this.changePassword({
+        from: this.editablePassword,
+        to: { name: this.name, password: this.password },
+      });
+    },
     ...mapActions([actionTypes.cancelEditPassword, actionTypes.changePassword]),
   },
 };
