@@ -87,6 +87,23 @@ import { copyToClipboard } from 'cloudpas-utils';
 import { getterTypes, actionTypes } from '@/consts';
 import ViewLayout from '@/components/view-layout';
 
+const collator = new Intl.Collator();
+
+const passwordsComparator = filter => ({ name: a }, { name: b }) => {
+  const term = filter.toLowerCase();
+  const indexDiff =
+    a.toLowerCase().indexOf(term) - b.toLowerCase().indexOf(term);
+
+  if (indexDiff !== 0) {
+    return indexDiff;
+  }
+
+  return collator.compare(a, b);
+};
+
+const passwordsFilter = filter => ({ name }) =>
+  name.toLowerCase().indexOf(filter.toLowerCase()) !== -1;
+
 export default {
   components: { ViewLayout },
   data() {
@@ -96,10 +113,9 @@ export default {
   },
   computed: {
     filteredPasswords() {
-      return this.passwords.filter(
-        ({ name }) =>
-          name.toLowerCase().indexOf(this.filter.toLowerCase()) !== -1
-      );
+      return this.passwords
+        .filter(passwordsFilter(this.filter))
+        .sort(passwordsComparator(this.filter));
     },
     ...mapGetters([getterTypes.passwords, getterTypes.isDirty]),
   },
