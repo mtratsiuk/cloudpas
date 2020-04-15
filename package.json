@@ -4,29 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "bootstrap": "npm i && lerna link && lerna bootstrap",
+    "deploy": "cd ./src/cloudpas-web && npm run build && gh-pages -d dist"
   },
   "author": "Mihail Tratsiuk",
   "license": "MIT",
   "lint-staged": {
     "linters": {
-      "src/**/*.js": [
-        "prettier-standard",
-        "standard",
-        "git add"
-      ]
+      "src/**/*.js": ["prettier-standard", "standard", "git add"]
     }
   },
   "standard": {
-    "globals": [
-      "expect",
-      "it",
-      "describe",
-      "__DEV__",
-      "FileReader"
-    ]
+    "globals": ["expect", "it", "describe", "__DEV__", "FileReader"]
   },
   "devDependencies": {
+    "gh-pages": "^2.2.0",
     "husky": "^0.14.3",
     "lerna": "^2.5.1",
     "lint-staged": "^6.0.0",
